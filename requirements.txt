@@ -1,0 +1,5 @@
+timm==0.4.12
+torch==1.6.0
+torchvision==0.7.0
+wandb==0.10.12
+webdataset==0.1.62
