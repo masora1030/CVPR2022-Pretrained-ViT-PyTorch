@@ -31,5 +31,5 @@ python pretrain.py /NOT/WORKING \
     --repeated-aug --mixup 0.8 --cutmix 1.0 --reprob 0.25 \
     --remode pixel --interpolation bicubic --hflip 0.0 \
     -j 1 --eval-metric loss --no-prefetcher \
-    --interval_saved_epochs 10 --output ${OUT_DIR} \
+    --interval-saved-epochs 10 --output ${OUT_DIR} \
     --log-wandb
