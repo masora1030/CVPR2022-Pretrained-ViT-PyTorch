@@ -1,31 +1,21 @@
+#! /bin/bash
+variance_threshold=0.05
 numof_category=1000
-fillrate=0.2
-weight=0.4
-imagesize=362
-numof_point=100000
-numof_ite=200000
-howto_draw='patch_gray'
-numof_thread=40
-arch=resnet50
+param_path='./../datasets/MVFractalDB/3DIFS_params/MVFractalDB-'${numof_category}
+3dmodel_save_path='./../datasets/MVFractalDB/3D-model/MVFractalDB-'${numof_category}
+img_save_path='./../datasets/MVFractalDB/images/MVFractalDB-'${numof_category}
 
 # Parameter search
-python param_search/ifs_search.py --rate=${fillrate} --category=${numof_category} --numof_point=${numof_point} --save_dir='./data'
-python param_search/parallel_dir.py --path2dir='./data' --rate=${fillrate} --category=${numof_category} --thread=${numof_thread}
+python category_search.py --variance=${variance_threshold} --numof_classes=${numof_category} --save_root=${param_path}
 
-# Multi-thread processing
-for ((i=0 ; i<${numof_thread} ; i++))
-do
-    python fractal_renderer/make_fractaldb.py \
-        --load_root='./data/csv_rate'${fillrate}'_category'${numof_category}'/csv'${i} \
-        --save_root='./data/FractalDB-'${numof_category} --image_size_x=${imagesize} --image_size_y=${imagesize} \
-        --iteration=${numof_ite} --draw_type=${howto_draw} --weight_csv='./fractal_renderer/weights/weights_'${weight}'.csv' &
-done
-wait
+# Generate 3D fractal model
+python instance.py --load_root ${param_path} --save_root ${3dmodel_save_path} --classes ${numof_category}
 
-# FractalDB Pre-training
-python pretraining/main.py --path2traindb='./data/FractalDB-'${numof_category} --dataset='FractalDB-'${numof_category} --numof_classes=${numof_category} --usenet=${arch}
+# Multi-view images render
+python render.py --load_root ${3dmodel_save_path} --save_root ${img_save_path}
 
-# Fine-tuning
-python finetuning/main.py --path2db='./data/CIFAR10' --path2weight='./data/weight' --dataset='FractalDB-'${numof_category} --ft_dataset='CIFAR10' --numof_pretrained_classes=${numof_category} --usenet=${arch}
+# MV-FractalDB Pre-training
+# python pretraining/main.py --path2traindb=${save_path} --dataset='FractalDB-'${numof_category} --numof_classes=${numof_category} --usenet=${arch}
 
-# これはACCVのやつです（雛形）
+# MV-FractalDB Fine-tuning
+# python finetuning/main.py --path2db=${save_path} --path2weight='./data/weight' --dataset='FractalDB-'${numof_category} --ft_dataset='CIFAR10' --numof_pretrained_classes=${numof_category} --usenet=${arch}
