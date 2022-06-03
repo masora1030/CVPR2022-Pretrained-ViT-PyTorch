@@ -82,16 +82,27 @@ If you would like to fine-tune on an image dataset, you must prepare conventiona
     ...
 ```
 
-<!-- ## Execution file -->
+## Execution file
 
-<!-- We prepared execution files ```exe.sh``` and ```exe_parallel.sh``` in the top directory. The execution file contains our recommended parameters. Please type the following commands on your environment. You can execute the Fractal Category Search, FractalDB Construction, Pre-training, and Fine-tuning.
+<!-- We prepared execution files ```exe.sh``` and ```exe_parallel.sh``` in the top directory. The execution file contains our recommended parameters. Please type the following commands on your environment. You can execute ExFractalDB (Extended Fractal DataBase) and RCDB (Radial Contour DataBase) Construction, Pre-training, and Fine-tuning. -->
 
-```bash
-chmod +x exe.sh
-./exe.sh
-```
+We prepared execution file ```exe_exfractaldb.sh```and ```exe_rcdb.sh``` in the top directory. The execution file contains our recommended parameters. Please type the following commands on your environment. You can execute ExFractalDB (Extended Fractal DataBase) and RCDB (Radial Contour DataBase) Construction, Pre-training, and Fine-tuning.
 
-For a faster execution, you shuold run the ```exe_parallel.sh``` as follows. You must adjust the thread parameter ```numof_thread=40``` in the script depending on your computational resource.
+- Construct ExFractalDB + Pre-train + Fine-tune
+
+  ```bash
+  chmod +x exe_exfractaldb.sh
+  ./exe_exfractaldb.sh
+  ```
+
+- Construct RCDB + Pre-train + Fine-tune
+
+  ```bash
+  chmod +x exe_rcdb.sh
+  ./exe_rcdb.sh
+  ```
+
+<!-- For a faster execution, you shuold run the ```exe_parallel.sh``` as follows. You must adjust the thread parameter ```numof_thread=40``` in the script depending on your computational resource.
 
 ```bash
 chmod +x exe_parallel.sh
@@ -170,6 +181,52 @@ The structure of rendered FractalDB is constructed as follows.
         ...
   ...
 ``` -->
+
+## ExfractalDB Construction
+<!-- TODO update -->
+
+Run the code ```fractal_renderer/make_rcdb.py``` to construct RCDB.
+
+```bash
+python fractal_renderer/make_rcdb.py
+```
+
+The code includes the following parameters.
+
+```misc
+--load_root: Category root with CSV file. You can find in "./data".
+--save_root: Create the directory of FractalDB.)
+--image_size_x: x-coordinate image size 
+--image_size_y: y-coordinate image size
+--pad_size_x: x-coordinate padding size
+--pad_size_y: y-coordinate padding size
+--iteration: #dot/#patch in a fractal image
+--draw_type: Rendering type. You can select "{point, patch}_{gray, color}"
+--weight_csv: Weight parameter. You can find "./fractal_renderer/weights"
+--instance: #instance. 10 -> 1000 instances per category, 100 -> 10,000 instances per category')
+```
+
+
+The structure of rendered FractalDB is constructed as follows.
+
+```misc
+./
+  data/
+    FractalDB-1000/
+      00000/
+        00000_00_count_0_flip0.png
+        00000_00_count_0_flip1.png
+        00000_00_count_0_flip2.png
+        00000_00_count_0_flip3.png
+        ...
+      00001/
+        00001_00_count_0_flip0.png
+        00001_00_count_0_flip1.png
+        00001_00_count_0_flip2.png
+        00001_00_count_0_flip3.png
+        ...
+  ...
+```
 
 ## Pre-training
 
