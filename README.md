@@ -2,7 +2,7 @@
 
 ## Summary
 
-The repository contains a Fractal Category Search, ExFractalDB and RCDB Construction, Pre-training, and Fine-tuning in Python/PyTorch.
+The repository contains a Fractal Category Search, ExFractalDB (Extended Fractal DataBase) and RCDB (Radial Contour DataBase) Construction, Pre-training, and Fine-tuning in Python/PyTorch.
 
 <!-- TODO update -->
 <!-- The repository is based on the paper:
@@ -60,7 +60,7 @@ $ pip install -r requirements.txt
 ```
 
 * Fine-tuning datasets
-If you would like to fine-tune on an image dataset, you must prepare conventional or self-defined datasets.  To use the following execution file ```./scripts/finetune.sh```, you should set the downloaded ImageNet-1k dataset as the following structure.
+If you would like to fine-tune on an image dataset, you must prepare conventional or self-defined datasets. To use the following execution file ```./scripts/finetune.sh```, you should set the downloaded ImageNet-1k dataset as the following structure.
 
 ```misc
 /PATH/TO/IMAGENET/
@@ -230,62 +230,39 @@ The structure of rendered FractalDB is constructed as follows.
 
 ## Pre-training
 
-Run the python script ```pretrain.py```, you can pre-train with your shard dataset. (no-shard dataset is also available.)
-
-(To make shard dataset, please refer to this repository: https://github.com/webdataset/webdataset)
+Run the python script ```pretrain.py```, you can pre-train with your dataset. (Shard dataset is also available. 
+To make shard dataset, please refer to this repository: https://github.com/webdataset/webdataset)
 
 Basically, you can run the python script ```pretrain.py``` with the following command.
 
-- Example : with deit_base, pre-train ExFractalDB-21k(shard)
-
-    ```bash
-    $ python pretrain.py /NOT/WORKING \
-        -w --trainshards /PATH/TO/ExFractalDB21000/SHARDS-{000000..002099}.tar \
-        --model deit_base_patch16_224 --experiment pretrain_deit_base_ExFractalDB21000_1.0e-3_shards \
-        --input-size 3 224 224 \
-        --sched cosine_iter --epochs 90 --lr 1.0e-3 --weight-decay 0.05 \
-        --batch-size 64 --opt adamw --num-classes 21000 \
-        --warmup-epochs 5 --cooldown-epochs 0 \
-        --smoothing 0.1 --drop-path 0.1 --aa rand-m9-mstd0.5-inc1 \
-        --mixup 0.8 --cutmix 1.0 --reprob 0.25 \
-        --remode pixel --interpolation bicubic --hflip 0.0 \
-        -j 1 --eval-metric loss --no-prefetcher \
-        --interval_saved_epochs 10 --output ./output/pretrain \
-        --log-wandb
-    ```
-
-Or you can run the job script ```scripts/pretrain.sh``` (spport multi-node training).
-​
-When running with the script above, please make your shard directory structure as following.
-
-```misc
-/PATH/TO/ExFractalDB21000/
-    SHARDS-000000.tar
-    SHARDS-000001.tar
-    ...
-    SHARDS-002099.tar
-```
-
-You can also pre-train with your no-shard dataset. Here is an Example.
-
-- Example : with deit_base, pre-train ExFractalDB-21k(no-shard)
+- Example : with deit_base, pre-train ExFractalDB-21k
 
     ```bash
     $ python pretrain.py /PATH/TO/ExFractalDB21000 \
-        --model deit_base_patch16_224 --experiment pretrain_deit_base_ExFractalDB21000_1.0e-3_shards \
+        --model deit_base_patch16_224 --experiment pretrain_deit_base_ExFractalDB21000_1.0e-3 \
         --input-size 3 224 224 \
         --sched cosine_iter --epochs 90 --lr 1.0e-3 --weight-decay 0.05 \
         --batch-size 64 --opt adamw --num-classes 21000 \
         --warmup-epochs 5 --cooldown-epochs 0 \
         --smoothing 0.1 --drop-path 0.1 --aa rand-m9-mstd0.5-inc1 \
-        --mixup 0.8 --cutmix 1.0 --reprob 0.25 \
+        --repeated-aug --mixup 0.8 --cutmix 1.0 --reprob 0.25 \
         --remode pixel --interpolation bicubic --hflip 0.0 \
         -j 16 --eval-metric loss \
         --interval_saved_epochs 10 --output ./output/pretrain \
         --log-wandb
     ```
 
-When running with the script above, please make your no-shard dataset structure as following.
+    > **Note**
+    > ```--batch-size``` means batch size per process. In the above script, for example, if you use 4 GPUs (and 4 process), overall batch size is 64×4(=256).
+    > In our study, for datasets with more than 10k categories, we basically pre-trained with overall batch size of 8192.
+    > If you wish to distribute pre-train across multiple processes, the following must be done.
+    > - Set the `MASTER_ADDR` environment variable.
+    > - Wrap the ```python``` command with ```mpirun``` command like this : ```$ mpirun -npernode $NPERNODE -np $NGPUS python pretrain.py ...```
+    >   - ```-npernode``` means processes per node and ```-np``` means overall num of processes (GPUs)
+
+Or you can run the job script ```scripts/pretrain.sh``` (spport multi-node training with mpirun).
+
+When running with the script above, please make your dataset structure as following.
 
 ```misc
 /PATH/TO/ExFractalDB21000/
@@ -299,6 +276,36 @@ When running with the script above, please make your no-shard dataset structure 
   cat002099/2
     img0_002099_000000_000.png
       ...
+```
+
+You can also pre-train with your shard dataset. Here is an Example.
+
+- Example : with deit_base, pre-train ExFractalDB-21k(shard)
+
+    ```bash
+    $ python pretrain.py /NOT/WORKING \
+        -w --trainshards /PATH/TO/ExFractalDB21000/SHARDS-{000000..002099}.tar \
+        --model deit_base_patch16_224 --experiment pretrain_deit_base_ExFractalDB21000_1.0e-3_shards \
+        --input-size 3 224 224 \
+        --sched cosine_iter --epochs 90 --lr 1.0e-3 --weight-decay 0.05 \
+        --batch-size 64 --opt adamw --num-classes 21000 \
+        --warmup-epochs 5 --cooldown-epochs 0 \
+        --smoothing 0.1 --drop-path 0.1 --aa rand-m9-mstd0.5-inc1 \
+        --repeated-aug --mixup 0.8 --cutmix 1.0 --reprob 0.25 \
+        --remode pixel --interpolation bicubic --hflip 0.0 \
+        -j 1 --eval-metric loss --no-prefetcher \
+        --interval_saved_epochs 10 --output ./output/pretrain \
+        --log-wandb
+    ```
+​
+When running with the script above with shard, please make your shard directory structure as following.
+
+```misc
+/PATH/TO/ExFractalDB21000/
+    SHARDS-000000.tar
+    SHARDS-000001.tar
+    ...
+    SHARDS-002099.tar
 ```
 
 After above pre-training, a trained model is created like ```./output/pretrain/pretrain_deit_base_ExFractalDB21000_1.0e-3_shards/model_best.pth.tar``` and ```../output/pretrain/pretrain_deit_base_ExFractalDB21000_1.0e-3_shards/last.pth.tar```. Moreover, you can resume the training from a checkpoint by assigning ```--resume``` parameter.
@@ -349,7 +356,7 @@ Basically, you can run the python script ```finetune.py``` with the following co
         --pretrained-path ./output/pretrain/pretrain_deit_base_ExFractalDB21000_1.0e-3_shards/model_best.pth.tar
     ```
 
-Or you can run the job script ```scripts/pretrain.sh``` (spport multi-node training).
+Or you can run the job script ```scripts/pretrain.sh``` (spport multi-node training with mpirun).
 
 Please see the script and code files for details on each argument.
 

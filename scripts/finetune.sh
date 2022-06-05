@@ -14,7 +14,7 @@ CP_PATH=./output/pretrain/pretrain_deit_${MODEL}_${PRE_DATA_NAME}${PRE_CLASSES}_
 # output dir path
 OUT_DIR=./output/finetune
 # path to fine-tune dataset
-SOURCE_DATASET_DIR=/PATH/TO/IMAGENET/
+SOURCE_DATASET_DIR=/PATH/TO/IMAGENET
 # name of dataset
 DATA_NAME=ImageNet1k
 # initial learning rate
