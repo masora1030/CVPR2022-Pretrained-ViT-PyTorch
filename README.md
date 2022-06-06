@@ -193,13 +193,30 @@ The structure of rendered FractalDB is constructed as follows.
   ...
 ``` -->
 
-## ExfractalDB Construction
+## ExFractalDB Construction ([README]())
+```
+$ cd exfractaldb_render/
+$ bash ExFractalDB_render.sh
+```
+
+## RCDB Construction ([README]())
+```
+$ cd rcdb_render/
+$ bash RCDB_render.sh
+```
+
 <!-- TODO update -->
 
-Run the code ```fractal_renderer/make_rcdb.py``` to construct RCDB.
+<!-- Run the code ```exe_scripts/exe_exfractaldb_1k.sh``` to construct ExFractalDB.
 
+You can run the following scripts to construct, pre-train, and fine-tune ExFractalDB-1k.
 ```bash
-python fractal_renderer/make_rcdb.py
+python exe_scripts/exe_exfractaldb_1k.sh
+```
+
+You can run the following scripts to construct, pre-train, and fine-tune ExFractalDB-10k.
+```bash
+python exe_scripts/exe_exfractaldb_10k.sh
 ```
 
 The code includes the following parameters.
@@ -237,7 +254,7 @@ The structure of rendered FractalDB is constructed as follows.
         00001_00_count_0_flip3.png
         ...
   ...
-```
+``` -->
 
 ## Pre-training
 
