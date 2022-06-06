@@ -264,14 +264,17 @@ Basically, you can run the python script ```pretrain.py``` with the following co
     ```
 
     > **Note**
+    > 
     > ```--batch-size``` means batch size per process. In the above script, for example, if you use 4 GPUs (and 4 process), overall batch size is 64×4(=256).
+    > 
     > In our study, for datasets with more than 10k categories, we basically pre-trained with overall batch size of 8192.
+    > 
     > If you wish to distribute pre-train across multiple processes, the following must be done.
     > - Set the `MASTER_ADDR` environment variable.
     > - Wrap the ```python``` command with ```mpirun``` command like this : ```$ mpirun -npernode $NPERNODE -np $NGPUS python pretrain.py ...```
     >   - ```-npernode``` means processes per node and ```-np``` means overall num of processes (GPUs)
 
-Or you can run the job script ```scripts/pretrain.sh``` (spport multi-node training with mpirun).
+Or you can run the job script ```scripts/pretrain.sh``` (spport multi-node training with OpenMPI).
 
 When running with the script above, please make your dataset structure as following.
 
@@ -346,7 +349,7 @@ python finetuning/main.py --path2db='/path/to/your/fine-tuning/data' --dataset='
 
 Run the python script ```finetune.py```, you additionally train other datasets from your pre-trained model.
 
-In order to use the fine-tuning code, you must prepare a fine-tuning dataset (e.g., ImageNet-1k, CIFAR-10/100, Pascal VOC 2012). Please look at ```Requirements``` for a dataset preparation.
+In order to use the fine-tuning code, you must prepare a fine-tuning dataset (e.g., ImageNet-1k, CIFAR-10/100, Pascal VOC 2012). Please look at [Requirements](#Requirements) for a dataset preparation.
 
 Basically, you can run the python script ```finetune.py``` with the following command.
 
@@ -367,7 +370,7 @@ Basically, you can run the python script ```finetune.py``` with the following co
         --pretrained-path ./output/pretrain/pretrain_deit_base_ExFractalDB21000_1.0e-3_shards/model_best.pth.tar
     ```
 
-Or you can run the job script ```scripts/pretrain.sh``` (spport multi-node training with mpirun).
+Or you can run the job script ```scripts/pretrain.sh``` (spport multi-node training with OpenMPI).
 
 Please see the script and code files for details on each argument.
 
