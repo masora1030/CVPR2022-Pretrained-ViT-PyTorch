@@ -8,7 +8,6 @@ radius_min=0
 oval_rate=2
 start_pos=400
 numof_thread=40
-arch=resnet50
 
 # Multi-thread processing
 for ((i=0 ; i<${numof_thread} ; i++))
@@ -19,9 +18,3 @@ do
         --radius_min=${radius_min} --oval_rate=${oval_rate} --start_pos=${start_pos} &
 done
 wait
-
-# FractalDB Pre-training
-python pretraining/main.py --path2traindb='./data/RCDB-'${numof_category} --dataset='RCDB-'${numof_category} --numof_classes=${numof_category} --usenet=${arch}
-
-# Fine-tuning
-python finetuning/main.py --path2db='./data/CIFAR10' --path2weight='./data/weight' --dataset='RCDB-'${numof_category} --ft_dataset='CIFAR10' --numof_pretrained_classes=${numof_category} --usenet=${arch}

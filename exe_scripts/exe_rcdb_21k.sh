@@ -1,31 +1,27 @@
-numof_category=1000
-fillrate=0.2
-weight=0.4
-imagesize=362
-numof_point=100000
-numof_ite=200000
-howto_draw='patch_gray'
+save_root="./rcdb"
+numof_category=21000
+numof_instances=1000
+vertex_num=200
+perlin_min=0
+line_width=0.1
+radius_min=0
+oval_rate=2
+start_pos=400
 numof_thread=40
 arch=resnet50
-
-# Parameter search
-python param_search/ifs_search.py --rate=${fillrate} --category=${numof_category} --numof_point=${numof_point} --save_dir='./data'
-python param_search/parallel_dir.py --path2dir='./data' --rate=${fillrate} --category=${numof_category} --thread=${numof_thread}
 
 # Multi-thread processing
 for ((i=0 ; i<${numof_thread} ; i++))
 do
-    python fractal_renderer/make_fractaldb.py \
-        --load_root='./data/csv_rate'${fillrate}'_category'${numof_category}'/csv'${i} \
-        --save_root='./data/FractalDB-'${numof_category} --image_size_x=${imagesize} --image_size_y=${imagesize} \
-        --iteration=${numof_ite} --draw_type=${howto_draw} --weight_csv='./fractal_renderer/weights/weights_'${weight}'.csv' &
+    python rcdb_render/make_rcdb.py --save_root=${save_root} --numof_thread=${numof_thread} --thread_num=${i}\
+        --numof_classes=${numof_category} --numof_instances=${numof_instances}\
+        --vertex_num=${vertex_num} --perlin_min=${perlin_min} --line_width=${line_width}\
+        --radius_min=${radius_min} --oval_rate=${oval_rate} --start_pos=${start_pos} &
 done
 wait
 
 # FractalDB Pre-training
-python pretraining/main.py --path2traindb='./data/FractalDB-'${numof_category} --dataset='FractalDB-'${numof_category} --numof_classes=${numof_category} --usenet=${arch}
+python pretraining/main.py --path2traindb='./data/RCDB-'${numof_category} --dataset='RCDB-'${numof_category} --numof_classes=${numof_category} --usenet=${arch}
 
 # Fine-tuning
-python finetuning/main.py --path2db='./data/CIFAR10' --path2weight='./data/weight' --dataset='FractalDB-'${numof_category} --ft_dataset='CIFAR10' --numof_pretrained_classes=${numof_category} --usenet=${arch}
-
-# これはACCVのやつです（雛形）
+python finetuning/main.py --path2db='./data/CIFAR10' --path2weight='./data/weight' --dataset='RCDB-'${numof_category} --ft_dataset='CIFAR10' --numof_pretrained_classes=${numof_category} --usenet=${arch}
