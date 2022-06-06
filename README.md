@@ -102,15 +102,15 @@ We prepared execution file ```exe_exfractaldb.sh```and ```exe_rcdb.sh``` in the 
 - Construct ExFractalDB + Pre-train + Fine-tune
 
   ```bash
-  chmod +x exe_exfractaldb.sh
-  ./exe_exfractaldb.sh
+  $ chmod +x exe_exfractaldb.sh
+  $ ./exe_exfractaldb.sh
   ```
 
 - Construct RCDB + Pre-train + Fine-tune
 
   ```bash
-  chmod +x exe_rcdb.sh
-  ./exe_rcdb.sh
+  $ chmod +x exe_rcdb.sh
+  $ ./exe_rcdb.sh
   ```
 
 <!-- For a faster execution, you shuold run the ```exe_parallel.sh``` as follows. You must adjust the thread parameter ```numof_thread=40``` in the script depending on your computational resource.
