@@ -1,13 +1,10 @@
-# Multi-view Fractal Database (MV-FractalDB) and Extended Fractal Database (ExFractalDB) 
-
-## Summary
-The repository contains a 3D Fractal Category Search, Multi-View Fractal DataBase (MV-FractalDB) and Extended Fractal DataBase (ExFractalDB) Construction in Python3.
+# ExFractalDB 
 
 ## Installation
-1. Create conda virtual environment.
+1. Create anaconda virtual environment.
 ```
-$ conda create -n mvfdb python=3.x -y
-$ conda activate mvfdb
+$ conda create -n exfdb python=3.x -y
+$ conda activate exfdb
 ```
 
 2. Install requirement modules
@@ -16,28 +13,37 @@ $ conda install -c conda-forge openexr-python
 $ pip install -r requirements.txt
 ```
 
-## MV-FractalDB Construction
-1. Search fractal category and create a 3D fractal model
-```
-$ cd 3dfractal_render
-$ bash render.sh
-```
+## Running the code
 
-2. Render multi-view image
-```
-$ cd image_render
-$ python render.py
-```
+We prepared execution file ExFractalDB_render.sh in the top directory. 
+The execution file contains our recommended parameters. 
+Please type the following commands on your environment. 
+You can execute the fractal category search, the 3D fractal model generate, and the multi-view image render, MV-FractalDB Construction.
 
-## Citation
-If you use this code, please cite the following paper:
+```bash ExFractalDB_render.sh```
 
-```bibtex
-@inproceedings{yamada2021mv,
-  title={MV-FractalDB: Formula-driven Supervised Learning for Multi-view Image Recognition},
-  author={Yamada, Ryosuke and Takahashi, Ryo and Suzuki, Ryota and Nakamura, Akio and Yoshiyasu, Yusuke and Sagawa, Ryusuke and Kataoka, Hirokatsu},
-  booktitle={2021 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)},
-  pages={2076--2083},
-  organization={IEEE}
-}
+The folder structure is constructed as follows.
+
+```misc
+./
+  ExFractalDB/
+    3DIFS_param/
+        ExFractalDB-{category}/
+            000000.csv
+            000001.csv
+            ...
+    3Dmodel/
+        ExFractalDB-{category}/
+           000000/
+           000000_0000.ply
+           000000_0001.ply
+           ...
+         ...
+    images/
+        ExFractalDB-{category}/
+           000000/
+           000000_00000_000.png
+           000000_00001_001.png
+           ...
+         ...
 ```
