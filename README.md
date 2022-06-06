@@ -61,6 +61,7 @@ If you use this code, please cite the following paper:
 * Pytorch 1.x (worked at 1.6.0)
 * CUDA (worked at 10.2)
 * CuDNN (worked at 8.0)
+* OpenMPI (worked at 4.0.5)
 * Graphic board (worked at single/four NVIDIA V100)
 
 ```pip install``` is available. Please install packages with the following command.
