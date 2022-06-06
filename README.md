@@ -28,6 +28,16 @@ Hirokatsu Kataoka, Kazushige Okayasu, Asato Matsumoto, Eisuke Yamagata, Ryosuke 
 ## Citation
 <!-- TODO update -->
 If you use this code, please cite the following paper:
+```bibtex
+@InProceedings{Kataoka_2022_CVPR,
+    author    = {Kataoka, Hirokatsu and Hayamizu, Ryo and Yamada, Ryosuke and Nakashima, Kodai and Takashima, Sora and Zhang, Xinyu and Martinez-Noriega, Edgar Josafat and Inoue, Nakamasa and Yokota, Rio},
+    title     = {Replacing Labeled Real-Image Datasets With Auto-Generated Contours},
+    booktitle = {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
+    month     = {June},
+    year      = {2022},
+    pages     = {21232-21241}
+}
+``` 
 
 <!-- ```bibtex
 @article{KataokaIJCV2022,
