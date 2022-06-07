@@ -79,7 +79,7 @@ If you would like to fine-tune on an image dataset, you must prepare conventiona
     ...
 ```
 
-## Execution file
+## Execution files
 <!-- TODO update -->
 <!-- We prepared execution files ```exe.sh``` and ```exe_parallel.sh``` in the top directory. The execution file contains our recommended parameters. Please type the following commands on your environment. You can execute ExFractalDB (Extended Fractal DataBase) and RCDB (Radial Contour DataBase) Construction, Pre-training, and Fine-tuning. -->
 
@@ -296,6 +296,12 @@ When running with the script above, please make your dataset structure as follow
       ...
 ```
 
+After above pre-training, a trained model is created like ```output/pretrain/pretrain_deit_base_ExFractalDB21000_1.0e-3/model_best.pth.tar``` and ```output/pretrain/pretrain_deit_base_ExFractalDB21000_1.0e-3/last.pth.tar```. Moreover, you can resume the training from a checkpoint by assigning ```--resume``` parameter.
+
+Please see the script and code files for details on each arguments.
+
+### Pre-training with shard dataset
+
 You can also pre-train with your shard dataset. Here is an Example.
 
 - Example : with deit_base, pre-train ExFractalDB-21k(shard)
@@ -326,11 +332,7 @@ When running with the script above with shard, please make your shard directory 
     SHARDS-002099.tar
 ```
 
-After above pre-training, a trained model is created like ```output/pretrain/pretrain_deit_base_ExFractalDB21000_1.0e-3/model_best.pth.tar``` and ```output/pretrain/pretrain_deit_base_ExFractalDB21000_1.0e-3/last.pth.tar```. Moreover, you can resume the training from a checkpoint by assigning ```--resume``` parameter.
-
-Please see the script and code files for details on each arguments.
-
-**Pre-trained models**
+### Pre-trained models
 
 Our pre-trained models are available in this [[Link](https://drive.google.com/drive/folders/1ikNUxJoMCx3Lx2TMrXfLdIwI6wwK5w_W?usp=sharing)].
 
