@@ -260,6 +260,8 @@ parser.add_argument('--eval-metric', default='top1', type=str, metavar='EVAL_MET
                     help='Best metric (default: "top1"')
 parser.add_argument('--log-wandb', action='store_true', default=False,
                     help='log training and validation metrics to wandb')
+parser.add_argument('--entity-name', default='YOUR_WANDB_ENTITY_NAME', type=str,
+                    help='set wandb entity name')
 parser.add_argument('--project-name', default='YOUR_WANDB_PPOJECT_NAME', type=str,
                     help='set wandb project name')
 parser.add_argument('--group-name', default='YOUR_WANDB_GROUP_NAME', type=str,
@@ -279,21 +281,18 @@ def main():
     args, args_text = _parse_args()
 
     args.prefetcher = not args.no_prefetcher
-    args.distributed = torch.cuda.device_count() > 1
+    args.distributed = int(os.getenv('OMPI_COMM_WORLD_SIZE', '1')) > 1
     args.local_rank = 0
     args.world_size = 1
     args.rank = 0  # global rank
     if args.distributed:
-        # initialize torch.distributed
+        # initialize torch.distributed using MPI
         master_addr = os.getenv("MASTER_ADDR", default="localhost")
         master_port = os.getenv('MASTER_PORT', default='8888')
         method = "tcp://{}:{}".format(master_addr, master_port)
-        world_size = torch.cuda.device_count()
-        rank = torch.cuda.current_device()  # global rank
-        if 'OMPI_COMM_WORLD_RANK' in os.environ: # multi-nodes with OpenMPI
-            world_size = int(os.getenv('OMPI_COMM_WORLD_SIZE', '1'))
-            rank = int(os.getenv('OMPI_COMM_WORLD_RANK', '0'))  # global rank
-        
+        rank = int(os.getenv('OMPI_COMM_WORLD_RANK', '0'))  # global rank
+        world_size = int(os.getenv('OMPI_COMM_WORLD_SIZE', '1'))
+
         ngpus_per_node = torch.cuda.device_count()
         node = rank // ngpus_per_node
         args.local_rank = rank % ngpus_per_node
@@ -327,7 +326,7 @@ def main():
 
     if args.log_wandb and args.rank == 0:
         if has_wandb:
-            wandb.init(project=args.project_name, name=args.experiment, group=args.group_name, config=args)
+            wandb.init(entity=args.entity_name, project=args.project_name, name=args.experiment, group=args.group_name, config=args)
         else:
             _logger.warning("You've requested to log metrics to wandb but package not found. "
                             "Metrics not being logged to wandb, try `pip install wandb`")
