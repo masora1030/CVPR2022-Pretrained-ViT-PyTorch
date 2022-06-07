@@ -6,7 +6,8 @@ The repository contains a Fractal Category Search, ExFractalDB (Extended Fractal
 
 <!-- TODO update -->
 <!-- The repository is based on the paper:
-Hirokatsu Kataoka, Kazushige Okayasu, Asato Matsumoto, Eisuke Yamagata, Ryosuke Yamada, Nakamasa Inoue, Akio Nakamura and Yutaka Satoh, "Pre-training without Natural Images", International Journal of Computer Vision (IJCV) / ACCV 2020 <font color="red">Best Paper Honorable Mention Award</font> [[Project](https://hirokatsukataoka16.github.io/Pretraining-without-Natural-Images/)] [[PDF (IJCV)](https://link.springer.com/content/pdf/10.1007/s11263-021-01555-8.pdf)] [[PDF (ACCV)](https://openaccess.thecvf.com/content/ACCV2020/papers/Kataoka_Pre-training_without_Natural_Images_ACCV_2020_paper.pdf)] [[Dataset](https://hirokatsukataoka16.github.io/Pretraining-without-Natural-Images/#dataset)] [[Oral](http://hirokatsukataoka.net/pdf/accv20_kataoka_oral.pdf)] [[Poster](http://hirokatsukataoka.net/pdf/accv20_kataoka_poster.pdf)] -->
+Hirokatsu Kataoka, Ryo Hayamizu, Ryosuke Yamada, Kodai Nakashima, Sora Takashima, Xinyu Zhang, Edgar Josafat Martinez-Noriega, Nakamasa Inoue and Rio Yokota, "Replacing Labeled Real-Image Datasets With Auto-Generated Contours", IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR) 2022 
+[[Project](https://hirokatsukataoka16.github.io/Pretraining-without-Natural-Images/)] [[PDF (IJCV)](https://link.springer.com/content/pdf/10.1007/s11263-021-01555-8.pdf)] [[PDF (ACCV)](https://openaccess.thecvf.com/content/ACCV2020/papers/Kataoka_Pre-training_without_Natural_Images_ACCV_2020_paper.pdf)] [[Dataset](https://hirokatsukataoka16.github.io/Pretraining-without-Natural-Images/#dataset)] [[Oral](http://hirokatsukataoka.net/pdf/accv20_kataoka_oral.pdf)] [[Poster](http://hirokatsukataoka.net/pdf/accv20_kataoka_poster.pdf)] -->
 
 ## Updates
 <!-- TODO update -->
@@ -26,7 +27,7 @@ Hirokatsu Kataoka, Kazushige Okayasu, Asato Matsumoto, Eisuke Yamagata, Ryosuke 
 <!-- * Divide execution files into single-thread processing ```exe.sh``` and multi-thread processing ```exe_parallel.sh``` for FractalDB rendering. -->
 
 ## Citation
-<!-- TODO update -->
+
 If you use this code, please cite the following paper:
 ```bibtex
 @InProceedings{Kataoka_2022_CVPR,
@@ -39,22 +40,6 @@ If you use this code, please cite the following paper:
 }
 ``` 
 
-<!-- ```bibtex
-@article{KataokaIJCV2022,
-  author={Kataoka, Hirokatsu and Okayasu, Kazushige and Matsumoto, Asato and Yamagata, Eisuke and Yamada, Ryosuke and Inoue, Nakamasa and Nakamura, Akio and Satoh, Yutaka},
-  title={Pre-training without Natural Images},
-  article={International Journal on Computer Vision (IJCV)},
-  year={2022},
-}
-
-@inproceedings{KataokaACCV2020,
-  author={Kataoka, Hirokatsu and Okayasu, Kazushige and Matsumoto, Asato and Yamagata, Eisuke and Yamada, Ryosuke and Inoue, Nakamasa and Nakamura, Akio and Satoh, Yutaka},
-  title={Pre-training without Natural Images},
-  booktitle={Asian Conference on Computer Vision (ACCV)},
-  year={2020},
-}
-``` -->
-
 ## Requirements
 
 * Python 3.x (worked at 3.8.2)
@@ -64,6 +49,7 @@ If you use this code, please cite the following paper:
 * OpenMPI (worked at 4.0.5)
 * Graphic board (worked at single/four NVIDIA V100)
 
+<!-- TODO update -->
 ```pip install``` is available. Please install packages with the following command.
 
 ```bash
@@ -71,7 +57,7 @@ $ pip install -r requirements.txt
 ```
 
 * Fine-tuning datasets
-If you would like to fine-tune on an image dataset, you must prepare conventional or self-defined datasets. To use the following execution file ```./scripts/finetune.sh```, you should set the downloaded ImageNet-1k dataset as the following structure.
+If you would like to fine-tune on an image dataset, you must prepare conventional or self-defined datasets. To use the following execution file ```scripts/finetune.sh```, you should set the downloaded ImageNet-1k dataset as the following structure.
 
 ```misc
 /PATH/TO/IMAGENET/
@@ -94,25 +80,26 @@ If you would like to fine-tune on an image dataset, you must prepare conventiona
 ```
 
 ## Execution file
-
+<!-- TODO update -->
 <!-- We prepared execution files ```exe.sh``` and ```exe_parallel.sh``` in the top directory. The execution file contains our recommended parameters. Please type the following commands on your environment. You can execute ExFractalDB (Extended Fractal DataBase) and RCDB (Radial Contour DataBase) Construction, Pre-training, and Fine-tuning. -->
 
-We prepared execution file ```exe_exfractaldb.sh```and ```exe_rcdb.sh``` in the top directory. The execution file contains our recommended parameters. Please type the following commands on your environment. You can execute ExFractalDB (Extended Fractal DataBase) and RCDB (Radial Contour DataBase) Construction, Pre-training, and Fine-tuning.
+We prepared four execution files in ```exe_scripts``` directory. Please type the following commands on your environment. You can execute ExFractalDB (Extended Fractal DataBase) and RCDB (Radial Contour DataBase) Construction, Pre-training, and Fine-tuning.
 
-- Construct ExFractalDB + Pre-train + Fine-tune
-
-  ```bash
-  $ chmod +x exe_exfractaldb.sh
-  $ ./exe_exfractaldb.sh
-  ```
-
-- Construct RCDB + Pre-train + Fine-tune
+- Construct ExFractalDB-1k + Pre-train + Fine-tune
 
   ```bash
-  $ chmod +x exe_rcdb.sh
-  $ ./exe_rcdb.sh
+  $ chmod +x exe_scripts/exe_exfractaldb_1k.sh
+  $ bash exe_scripts/exe_exfractaldb_1k.sh
   ```
 
+- Construct RCDB-1k + Pre-train + Fine-tune
+
+  ```bash
+  $ chmod +x exe_scripts/exe_rcdb_1k.sh
+  $ bash exe_scripts/exe_rcdb_1k.sh
+  ```
+
+<!-- TODO update -->
 <!-- For a faster execution, you shuold run the ```exe_parallel.sh``` as follows. You must adjust the thread parameter ```numof_thread=40``` in the script depending on your computational resource.
 
 ```bash
@@ -195,13 +182,13 @@ The structure of rendered FractalDB is constructed as follows.
 
 ## ExFractalDB Construction ([README]())
 ```
-$ cd exfractaldb_render/
+$ cd exfractaldb_render
 $ bash ExFractalDB_render.sh
 ```
 
 ## RCDB Construction ([README]())
 ```
-$ cd rcdb_render/
+$ cd rcdb_render
 $ bash RCDB_render.sh
 ```
 
@@ -304,7 +291,7 @@ When running with the script above, please make your dataset structure as follow
     img0_000001_000000_000.png
       ...
   ...
-  cat002099/2
+  cat002099/
     img0_002099_000000_000.png
       ...
 ```
@@ -339,28 +326,40 @@ When running with the script above with shard, please make your shard directory 
     SHARDS-002099.tar
 ```
 
-After above pre-training, a trained model is created like ```./output/pretrain/pretrain_deit_base_ExFractalDB21000_1.0e-3_shards/model_best.pth.tar``` and ```../output/pretrain/pretrain_deit_base_ExFractalDB21000_1.0e-3_shards/last.pth.tar```. Moreover, you can resume the training from a checkpoint by assigning ```--resume``` parameter.
+After above pre-training, a trained model is created like ```output/pretrain/pretrain_deit_base_ExFractalDB21000_1.0e-3/model_best.pth.tar``` and ```output/pretrain/pretrain_deit_base_ExFractalDB21000_1.0e-3/last.pth.tar```. Moreover, you can resume the training from a checkpoint by assigning ```--resume``` parameter.
 
 Please see the script and code files for details on each arguments.
 
 **Pre-trained models**
-<!-- TODO update -->
-<!-- Our pre-trained models are available in this [[Link](https://drive.google.com/drive/folders/1tTD-cKKEgBjacCi4ZJ6bRYOv6FsjtGt_?usp=sharing)].
 
-We have mainly prepared two different pre-trained models. These pre-trained models are trained on FractalDB in different categories (1k and 10k) and the same number of instances (1k).
+Our pre-trained models are available in this [[Link](https://drive.google.com/drive/folders/1ikNUxJoMCx3Lx2TMrXfLdIwI6wwK5w_W?usp=sharing)].
+
+We have mainly prepared two different pre-trained models. These pre-trained models are trained on {ExFractalDB, RCDB}-21k.
+
 ```misc
-FractalDB-1000_resnet50_epoch90.pth: --dataset=FractalDB-1000 --usenet=resnet50 --epochs=90 --numof_classes=1000
-FractalDB-10000_resnet50_epoch90.pth: --dataset=FractalDB-10000 --usenet=resnet50 --epochs=90 --numof_classes=10000
+exfractal_21k_base.pth.tar: --model deit_base_patch16_224 --experiment pretrain_deit_base_ExFractalDB21000_1.0e-3_shards
+rcdb_21k_base.pth.tar: --model deit_base_patch16_224 --experiment pretrain_deit_base_RCDB21000_1.0e-3_shards
 ```
 
 If you would like to additionally train from the pre-trained model, you command with the next fine-tuning code as follows.
-```misc
-# FractalDB-1000_resnet50_epoch90.pth
-python finetuning/main.py --path2db='/path/to/your/fine-tuning/data' --dataset='FractalDB-1000' --ft_dataset='YourDataset' --numof_pretrained_classes=1000 --usenet=resnet50
 
-# FractalDB-10000_resnet50_epoch90.pth
-python finetuning/main.py --path2db='/path/to/your/fine-tuning/data' --dataset='FractalDB-10000' --ft_dataset='YourDataset' --numof_pretrained_classes=10000 --usenet=resnet50
-``` -->
+```bash
+# exfractal_21k_base.pth.tar
+python finetune.py /PATH/TO/YOUR_FT_DATASET \
+    --model deit_base_patch16_224 --experiment finetune_deit_base_YOUR_FT_DATASET_from_ExFractalDB21000_1.0e-3_shards \
+    --input-size 3 224 224 --num-classes YOUR_FT_DATASET_CATEGORY_SIZE \
+    --output ./output/finetune \
+    --log-wandb \
+    --pretrained-path /PATH/TO/exfractal_21k_base.pth.tar
+
+# rcdb_21k_base.pth.tar
+python finetune.py /PATH/TO/YOUR_FT_DATASET \
+    --model deit_base_patch16_224 --experiment finetune_deit_base_YOUR_FT_DATASET_from_RCDB21000_1.0e-3_shards \
+    --input-size 3 224 224 --num-classes YOUR_FT_DATASET_CATEGORY_SIZE \
+    --output ./output/finetune \
+    --log-wandb \
+    --pretrained-path /PATH/TO/rcdb_21k_base.pth.tar
+```
 
 ## Fine-tuning
 
@@ -370,7 +369,7 @@ In order to use the fine-tuning code, you must prepare a fine-tuning dataset (e.
 
 Basically, you can run the python script ```finetune.py``` with the following command.
 
-- Example : with deit_base, fine-tune ImageNet1k from pre-trained model (with ExFractalDB-21k)
+- Example : with deit_base, fine-tune ImageNet-1k from pre-trained model (with ExFractalDB-21k)
 
     ```bash
     $ python finetune.py /PATH/TO/IMAGENET \
@@ -384,10 +383,10 @@ Basically, you can run the python script ```finetune.py``` with the following co
         --drop-path 0.1 --reprob 0.25 -j 16 \
         --output ./output/finetune \
         --log-wandb \
-        --pretrained-path ./output/pretrain/pretrain_deit_base_ExFractalDB21000_1.0e-3_shards/model_best.pth.tar
+        --pretrained-path ./output/pretrain/pretrain_deit_base_ExFractalDB21000_1.0e-3/model_best.pth.tar
     ```
 
-Or you can run the job script ```scripts/pretrain.sh``` (spport multi-node training with OpenMPI).
+Or you can run the job script ```scripts/finetune.sh``` (spport multi-node training with OpenMPI).
 
 Please see the script and code files for details on each argument.
 
