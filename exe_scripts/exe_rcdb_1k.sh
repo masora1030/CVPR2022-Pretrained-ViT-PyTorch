@@ -34,11 +34,14 @@ SOURCE_DATASET=${SAVE_ROOT}
 # output dir path
 OUT_DIR=./cheak_points/${MODEL}/${CLASSES}/pretrain
 # num of GPUs
-NGPUS=2
+NGPUS=4
 # num of processes per node
-NPERNODE=2
+NPERNODE=4
 # local mini-batch size (global mini-batch size = NGPUS × LOCAL_BS)
 LOCAL_BS=64
+
+# environment variable which is the IP address of the machine in rank 0 (need only for multiple nodes)
+# MASTER_ADDR="192.168.1.1"
 
 mpirun -npernode ${NPERNODE} -np ${NGPUS} \
 python pretrain.py ${SOURCE_DATASET} \
@@ -80,9 +83,9 @@ CLASSES=1000
 # num of epochs
 EPOCHS=300
 # num of GPUs
-NGPUS=2
+NGPUS=4
 # num of processes per node
-NPERNODE=2
+NPERNODE=4
 # local mini-batch size (global mini-batch size = NGPUS × LOCAL_BS)
 LOCAL_BS=64
 

@@ -19,6 +19,9 @@ NPERNODE=4
 # local mini-batch size (global mini-batch size = NGPUS × LOCAL_BS)
 LOCAL_BS=64
 
+# environment variable which is the IP address of the machine in rank 0 (need only for multiple nodes)
+# MASTER_ADDR="192.168.1.1"
+
 mpirun -npernode $NPERNODE -np $NGPUS \
 python pretrain.py ${SOURCE_DATASET} \
     --model deit_${MODEL}_patch16_224 --experiment pretrain_deit_${MODEL}_${DATA_NAME}${CLASSES}_${LR} \

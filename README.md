@@ -42,18 +42,18 @@ If you use this code, please cite the following paper:
 
 ## Requirements
 
-* Python 3.x (worked at 3.8.2)
+* Python 3.x (worked at 3.7)
 * Pytorch 1.x (worked at 1.6.0)
 * CUDA (worked at 10.2)
 * CuDNN (worked at 8.0)
 * OpenMPI (worked at 4.0.5)
 * Graphic board (worked at single/four NVIDIA V100)
 
-<!-- TODO update -->
-```pip install``` is available. Please install packages with the following command.
+Please install packages with the following command. (use conda env)
 
 ```bash
-$ pip install -r requirements.txt
+$ conda env create -f conda_requirements.yaml
+$ conda activate cvpr2022_env
 ```
 
 * Fine-tuning datasets
@@ -80,8 +80,6 @@ If you would like to fine-tune on an image dataset, you must prepare conventiona
 ```
 
 ## Execution files
-<!-- TODO update -->
-<!-- We prepared execution files ```exe.sh``` and ```exe_parallel.sh``` in the top directory. The execution file contains our recommended parameters. Please type the following commands on your environment. You can execute ExFractalDB (Extended Fractal DataBase) and RCDB (Radial Contour DataBase) Construction, Pre-training, and Fine-tuning. -->
 
 We prepared four execution files in ```exe_scripts``` directory. Please type the following commands on your environment. You can execute ExFractalDB (Extended Fractal DataBase) and RCDB (Radial Contour DataBase) Construction, Pre-training, and Fine-tuning.
 
@@ -99,161 +97,38 @@ We prepared four execution files in ```exe_scripts``` directory. Please type the
   $ bash exe_scripts/exe_rcdb_1k.sh
   ```
 
+> **Note**
+> 
+> - ```exe_scripts/exe_exfractaldb_1k.sh``` and ```exe_scripts/exe_rcdb_1k.sh``` are execution scripts under a single node and 4 GPUs environment. For example, if you wish to run the script under a single node and a single GPU, try setting the ```NGPUS``` and ```NPERNODE``` environment variables in the script to 1. ```NGPUS``` means overall the number of GPUs (processes) and ```NPERNODE``` means GPUs (processes) per node.
+> 
+> - In ```exe_scripts/exe_exfractaldb_21k.sh``` and ```exe_scripts/exe_rcdb_21k.sh```, we use the same configs reported in our paper. Therefore, the setup is multiple nodes and using a large number of GPUs (32 nodes and 128 GPUs for pre-train). If you wish to conduct single-node experiments, please change the config accordingly. Attention, that the number of GPUs used changes the overall batch size proportionally and the optimal learning rate.
+
 <!-- TODO update -->
-<!-- For a faster execution, you shuold run the ```exe_parallel.sh``` as follows. You must adjust the thread parameter ```numof_thread=40``` in the script depending on your computational resource.
-
-```bash
-chmod +x exe_parallel.sh
-./exe_parallel.sh
-``` -->
-
-
-<!-- ## Fractal Category Search -->
-<!-- TODO update -->
-
-<!-- Run the code ```param_search/ifs_search.py``` to create fractal categories and their representative images. In our work, the basic parameters are ```--rate 0.2 --category 1000 --numof_point 100000```
-
-```bash
-python param_search/ifs_search.py --rate=0.2 --category=1000 --numof_point=100000  --save_dir='./data'
-```
-
-The structure of directories is constructed as follows.
-
-```misc
-./
-  data/
-    csv_rate20_category1000/
-      00000.csv
-      00001.csv
-      ...
-    rate20_category1000/
-      00000.png
-      00001.png
-      ...
-  param_search/
-  ...
-``` -->
-
-<!-- ## FractalDB Construction -->
-<!-- TODO update -->
-
-<!-- Run the code ```fractal_renderer/make_fractaldb.py``` to construct FractalDB.
-
-```bash
-python fractal_renderer/make_fractaldb.py
-```
-
-The code includes the following parameters.
-
-```misc
---load_root: Category root with CSV file. You can find in "./data".
---save_root: Create the directory of FractalDB.)
---image_size_x: x-coordinate image size 
---image_size_y: y-coordinate image size
---pad_size_x: x-coordinate padding size
---pad_size_y: y-coordinate padding size
---iteration: #dot/#patch in a fractal image
---draw_type: Rendering type. You can select "{point, patch}_{gray, color}"
---weight_csv: Weight parameter. You can find "./fractal_renderer/weights"
---instance: #instance. 10 -> 1000 instances per category, 100 -> 10,000 instances per category')
-```
-
-
-The structure of rendered FractalDB is constructed as follows.
-
-```misc
-./
-  data/
-    FractalDB-1000/
-      00000/
-        00000_00_count_0_flip0.png
-        00000_00_count_0_flip1.png
-        00000_00_count_0_flip2.png
-        00000_00_count_0_flip3.png
-        ...
-      00001/
-        00001_00_count_0_flip0.png
-        00001_00_count_0_flip1.png
-        00001_00_count_0_flip2.png
-        00001_00_count_0_flip3.png
-        ...
-  ...
-``` -->
-
 ## ExFractalDB Construction ([README]())
 ```
 $ cd exfractaldb_render
 $ bash ExFractalDB_render.sh
 ```
 
+<!-- TODO update -->
 ## RCDB Construction ([README]())
 ```
 $ cd rcdb_render
 $ bash RCDB_render.sh
 ```
 
-<!-- TODO update -->
-
-<!-- Run the code ```exe_scripts/exe_exfractaldb_1k.sh``` to construct ExFractalDB.
-
-You can run the following scripts to construct, pre-train, and fine-tune ExFractalDB-1k.
-```bash
-python exe_scripts/exe_exfractaldb_1k.sh
-```
-
-You can run the following scripts to construct, pre-train, and fine-tune ExFractalDB-10k.
-```bash
-python exe_scripts/exe_exfractaldb_10k.sh
-```
-
-The code includes the following parameters.
-
-```misc
---load_root: Category root with CSV file. You can find in "./data".
---save_root: Create the directory of FractalDB.)
---image_size_x: x-coordinate image size 
---image_size_y: y-coordinate image size
---pad_size_x: x-coordinate padding size
---pad_size_y: y-coordinate padding size
---iteration: #dot/#patch in a fractal image
---draw_type: Rendering type. You can select "{point, patch}_{gray, color}"
---weight_csv: Weight parameter. You can find "./fractal_renderer/weights"
---instance: #instance. 10 -> 1000 instances per category, 100 -> 10,000 instances per category')
-```
-
-
-The structure of rendered FractalDB is constructed as follows.
-
-```misc
-./
-  data/
-    FractalDB-1000/
-      00000/
-        00000_00_count_0_flip0.png
-        00000_00_count_0_flip1.png
-        00000_00_count_0_flip2.png
-        00000_00_count_0_flip3.png
-        ...
-      00001/
-        00001_00_count_0_flip0.png
-        00001_00_count_0_flip1.png
-        00001_00_count_0_flip2.png
-        00001_00_count_0_flip3.png
-        ...
-  ...
-``` -->
-
 ## Pre-training
 
-Run the python script ```pretrain.py```, you can pre-train with your dataset. (Shard dataset is also available. 
+Run the python script ```pretrain.py```, you can pre-train with your dataset. (Shard dataset is also available for accelerating IO processing. 
 To make shard dataset, please refer to this repository: https://github.com/webdataset/webdataset)
 
 Basically, you can run the python script ```pretrain.py``` with the following command.
 
-- Example : with deit_base, pre-train ExFractalDB-21k
+- Example : with deit_base, pre-train ExFractalDB-21k, 4 GPUs (Batch Size = 64×4 = 256)
 
     ```bash
-    $ python pretrain.py /PATH/TO/ExFractalDB21000 \
+    $ mpirun -npernode 4 -np 4 \
+      python pretrain.py /PATH/TO/ExFractalDB21000 \
         --model deit_base_patch16_224 --experiment pretrain_deit_base_ExFractalDB21000_1.0e-3 \
         --input-size 3 224 224 \
         --sched cosine_iter --epochs 90 --lr 1.0e-3 --weight-decay 0.05 \
@@ -269,16 +144,16 @@ Basically, you can run the python script ```pretrain.py``` with the following co
 
     > **Note**
     > 
-    > ```--batch-size``` means batch size per process. In the above script, for example, if you use 4 GPUs (and 4 process), overall batch size is 64×4(=256).
+    > - ```--batch-size``` means batch size per process. In the above script, for example, you use 4 GPUs (4 process), so overall batch size is 64×4(=256).
     > 
-    > In our study, for datasets with more than 10k categories, we basically pre-trained with overall batch size of 8192.
+    > - In our paper research, for datasets with more than 10k categories, we basically pre-trained with overall batch size of 8192 (64×128).
     > 
-    > If you wish to distribute pre-train across multiple processes, the following must be done.
-    > - Set the `MASTER_ADDR` environment variable.
-    > - Wrap the ```python``` command with ```mpirun``` command like this : ```$ mpirun -npernode $NPERNODE -np $NGPUS python pretrain.py ...```
-    >   - ```-npernode``` means processes per node and ```-np``` means overall num of processes (GPUs)
+    > - If you wish to distribute pre-train across multiple nodes, the following must be done.
+    >   - Set the `MASTER_ADDR` environment variable which is the IP address of the machine in rank 0.
+    >   - Set the ```-npernode``` and ```-np``` arguments of ```mpirun``` command.
+    >     - ```-npernode``` means GPUs (processes) per node and ```-np``` means overall the number of GPUs (processes).
 
-Or you can run the job script ```scripts/pretrain.sh``` (spport multi-node training with OpenMPI).
+Or you can run the job script ```scripts/pretrain.sh``` (support multiple nodes training with OpenMPI). Note, the setup is multiple nodes and using a large number of GPUs (32 nodes and 128 GPUs for pre-train).
 
 When running with the script above, please make your dataset structure as following.
 
@@ -296,7 +171,8 @@ When running with the script above, please make your dataset structure as follow
       ...
 ```
 
-After above pre-training, a trained model is created like ```output/pretrain/pretrain_deit_base_ExFractalDB21000_1.0e-3/model_best.pth.tar``` and ```output/pretrain/pretrain_deit_base_ExFractalDB21000_1.0e-3/last.pth.tar```. Moreover, you can resume the training from a checkpoint by assigning ```--resume``` parameter.
+After above pre-training, trained models are created like ```output/pretrain/pretrain_deit_base_ExFractalDB21000_1.0e-3/model_best.pth.tar``` and ```output/pretrain/pretrain_deit_base_ExFractalDB21000_1.0e-3/last.pth.tar```. 
+Moreover, you can resume the training from a checkpoint by setting ```--resume``` parameter.
 
 Please see the script and code files for details on each arguments.
 
@@ -304,10 +180,11 @@ Please see the script and code files for details on each arguments.
 
 You can also pre-train with your shard dataset. Here is an Example.
 
-- Example : with deit_base, pre-train ExFractalDB-21k(shard)
+- Example : with deit_base, pre-train ExFractalDB-21k(shard), 4 GPUs (Batch Size = 64×4 = 256)
 
     ```bash
-    $ python pretrain.py /NOT/WORKING \
+    $ mpirun -npernode 4 -np 4 \
+      python pretrain.py /NOT/WORKING \
         -w --trainshards /PATH/TO/ExFractalDB21000/SHARDS-{000000..002099}.tar \
         --model deit_base_patch16_224 --experiment pretrain_deit_base_ExFractalDB21000_1.0e-3_shards \
         --input-size 3 224 224 \
@@ -322,7 +199,7 @@ You can also pre-train with your shard dataset. Here is an Example.
         --log-wandb
     ```
 ​
-When running with the script above with shard, please make your shard directory structure as following.
+When running with the script above with shard dataset, please make your shard dataset structure as following.
 
 ```misc
 /PATH/TO/ExFractalDB21000/
@@ -343,11 +220,12 @@ exfractal_21k_base.pth.tar: --model deit_base_patch16_224 --experiment pretrain_
 rcdb_21k_base.pth.tar: --model deit_base_patch16_224 --experiment pretrain_deit_base_RCDB21000_1.0e-3_shards
 ```
 
-If you would like to additionally train from the pre-trained model, you command with the next fine-tuning code as follows.
+If you would like to additionally train from the pre-trained model, please command with the next fine-tuning code as follows.
 
 ```bash
 # exfractal_21k_base.pth.tar
-python finetune.py /PATH/TO/YOUR_FT_DATASET \
+$ mpirun -npernode 4 -np 4 \
+  python finetune.py /PATH/TO/YOUR_FT_DATASET \
     --model deit_base_patch16_224 --experiment finetune_deit_base_YOUR_FT_DATASET_from_ExFractalDB21000_1.0e-3_shards \
     --input-size 3 224 224 --num-classes YOUR_FT_DATASET_CATEGORY_SIZE \
     --output ./output/finetune \
@@ -355,7 +233,8 @@ python finetune.py /PATH/TO/YOUR_FT_DATASET \
     --pretrained-path /PATH/TO/exfractal_21k_base.pth.tar
 
 # rcdb_21k_base.pth.tar
-python finetune.py /PATH/TO/YOUR_FT_DATASET \
+$ mpirun -npernode 4 -np 4 \
+  python finetune.py /PATH/TO/YOUR_FT_DATASET \
     --model deit_base_patch16_224 --experiment finetune_deit_base_YOUR_FT_DATASET_from_RCDB21000_1.0e-3_shards \
     --input-size 3 224 224 --num-classes YOUR_FT_DATASET_CATEGORY_SIZE \
     --output ./output/finetune \
@@ -371,10 +250,11 @@ In order to use the fine-tuning code, you must prepare a fine-tuning dataset (e.
 
 Basically, you can run the python script ```finetune.py``` with the following command.
 
-- Example : with deit_base, fine-tune ImageNet-1k from pre-trained model (with ExFractalDB-21k)
+- Example : with deit_base, fine-tune ImageNet-1k from pre-trained model (with ExFractalDB-21k), 4 GPUs (Batch Size = 64×4 = 256)
 
     ```bash
-    $ python finetune.py /PATH/TO/IMAGENET \
+    $ mpirun -npernode 4 -np 4 \
+      python finetune.py /PATH/TO/IMAGENET \
         --model deit_base_patch16_224 --experiment finetune_deit_base_ImageNet1k_from_ExFractalDB21000_1.0e-3 \
         --input-size 3 224 224 --num-classes 1000 \
         --sched cosine_iter --epochs 300 --lr 1.0e-3 --weight-decay 0.05 \
@@ -388,9 +268,9 @@ Basically, you can run the python script ```finetune.py``` with the following co
         --pretrained-path ./output/pretrain/pretrain_deit_base_ExFractalDB21000_1.0e-3/model_best.pth.tar
     ```
 
-Or you can run the job script ```scripts/finetune.sh``` (spport multi-node training with OpenMPI).
+Or you can run the job script ```scripts/finetune.sh``` (support multiple nodes training with OpenMPI).
 
-Please see the script and code files for details on each argument.
+Please see the script and code files for details on each arguments.
 
 ## Acknowledgements
 

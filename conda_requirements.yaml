@@ -1,4 +1,4 @@
-name: exfdb_v7
+name: cvpr2022_env
 channels:
 - https://conda.anaconda.org/menpo
 - conda-forge
