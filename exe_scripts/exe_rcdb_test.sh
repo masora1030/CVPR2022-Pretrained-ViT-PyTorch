@@ -8,7 +8,7 @@ RADIUS_MIN=0
 OVAL_RATE=2
 START_POS=400
 NUMOF_THREAD=2
-
+/home/hayamizu/CVPR2022-Pretrained-ViT-PyTorch/cheak_points/base/2/pretrain/pretrain_deit_base_RCDB2_1.0e-3/model_best.pth.tar
 # Multi-thread processing
 for ((i=0 ; i<${NUMOF_THREAD} ; i++))
 do
@@ -63,7 +63,7 @@ PRE_LR=1.0e-3
 # name of dataset for pre-train
 PRE_DATA_NAME=RCDB
 # num of classes for pre-train
-PRE_CLASSES=1000
+PRE_CLASSES=2
 # path to checkpoint of pre-trained model
 CP_PATH=${OUT_DIR}/pretrain_deit_${MODEL}_${PRE_DATA_NAME}${PRE_CLASSES}_${PRE_LR}/model_best.pth.tar
 
@@ -71,7 +71,7 @@ CP_PATH=${OUT_DIR}/pretrain_deit_${MODEL}_${PRE_DATA_NAME}${PRE_CLASSES}_${PRE_L
 # output dir path
 OUT_DIR=./cheak_points/${MODEL}/${CLASSES}/finetune
 # path to fine-tune dataset
-SOURCE_DATASET_DIR="/home/pcd004/2021/yamada/datasets/CIFAR10"
+SOURCE_DATASET_DIR="/home/yamada/Document/datasets/CIFAR10"
 # name of dataset
 DATA_NAME=CIFAR10
 # initial learning rate
