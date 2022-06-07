@@ -119,8 +119,7 @@ $ bash RCDB_render.sh
 
 ## Pre-training
 
-Run the python script ```pretrain.py```, you can pre-train with your dataset. (Shard dataset is also available for accelerating IO processing. 
-To make shard dataset, please refer to this repository: https://github.com/webdataset/webdataset)
+Run the python script ```pretrain.py```, you can pre-train with your dataset.
 
 Basically, you can run the python script ```pretrain.py``` with the following command.
 
@@ -178,7 +177,9 @@ Please see the script and code files for details on each arguments.
 
 ### Pre-training with shard dataset
 
-You can also pre-train with your shard dataset. Here is an Example.
+Shard dataset is also available for accelerating IO processing. 
+To make shard dataset, please refer to this repository: https://github.com/webdataset/webdataset. 
+Here is an Example of training with shard dataset.
 
 - Example : with deit_base, pre-train ExFractalDB-21k(shard), 4 GPUs (Batch Size = 64×4 = 256)
 
