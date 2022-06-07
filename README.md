@@ -1,5 +1,21 @@
 # ExFractalDB and RCDB
 
+## TOC
+- [Summary](#summary)
+- [Updates](#updates)
+- [Citation](#citation)
+- [Requirements](#requirements)
+- [Execution Files](#execution-files)
+- [ExFractalDB Construction](#exfractaldb-construction-readme)
+- [RCDB Construction](#rcdb-construction-readme)
+- [Pre-training](#pre-training)
+  - [Pre-training with shard dataset](#pre-training-with-shard-dataset)
+  - [Pre-trained models](#pre-trained-models)
+- [Fine-Tuning](#fine-tuning)
+- [Acknowledgements](#acknowledgements)
+- [Terms of use](#terms-of-use)
+
+
 ## Summary
 
 The repository contains a Fractal Category Search, ExFractalDB (Extended Fractal DataBase) and RCDB (Radial Contour DataBase) Construction, Pre-training, and Fine-tuning in Python/PyTorch.
