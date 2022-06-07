@@ -40,8 +40,6 @@ NPERNODE=2
 # local mini-batch size (global mini-batch size = NGPUS × LOCAL_BS)
 LOCAL_BS=16
 
-export CUDA_VISIBLE_DEVICES="0,1"
-
 python pretrain.py ${SOURCE_DATASET} \
     --model deit_${MODEL}_patch16_224 --experiment pretrain_deit_${MODEL}_${DATA_NAME}${CLASSES}_${LR} \
     --input-size 3 224 224 \
