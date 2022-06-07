@@ -25,8 +25,8 @@ from PIL import Image
 
 def conf():
 	parser = argparse.ArgumentParser()
-	parser.add_argument("--load_root", default='./../3dfractal_render/3Dfractal/cat1000_ins145', type = str, help="load PLY root")
-	parser.add_argument("--save_root", default="./EXFractalDB", type = str, help="save .png root")
+	parser.add_argument("--load_root", default='./3dfractal_render/ifs_weight/weights_ins145.csv', type = str, help="load PLY root")
+	parser.add_argument("--save_root", default="./dataset/EXFractalDB", type = str, help="save .png root")
 	args = parser.parse_args()
 	return args
 
@@ -55,7 +55,7 @@ class TextDrawer:
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE)
         glBindTexture(GL_TEXTURE_2D, 0)
         self.sfc = SDL_CreateRGBSurface(0, self.Width, self.Height, 32, 0xff000000, 0x00ff0000, 0x0000ff00, 0x000000ff)
-        self.font = sdl2.ext.FontManager("./arial.ttf", size=16, color=sdl2.ext.Color(255, 255, 255, 255), bg_color=sdl2.ext.Color(0, 0, 0, 0))
+        self.font = sdl2.ext.FontManager("./image_render/arial.ttf", size=16, color=sdl2.ext.Color(255, 255, 255, 255), bg_color=sdl2.ext.Color(0, 0, 0, 0))
 
         points=np.array([
             -1,-1,-1,
@@ -89,7 +89,7 @@ class TextDrawer:
         glBufferData(GL_ELEMENT_ARRAY_BUFFER, 4*len(indices), indices, GL_STATIC_DRAW)
         glBindVertexArray(0)
 
-        self.printTexShader_prog = createShader("printTexShader.vert","printTexShader.frag")
+        self.printTexShader_prog = createShader("./image_render/printTexShader.vert","./image_render/printTexShader.frag")
         self.colorSampler_ul = glGetUniformLocation(self.printTexShader_prog, "colorSampler")
         glUseProgram(self.printTexShader_prog)
         glUniform1i(self.colorSampler_ul, 0)
@@ -186,7 +186,7 @@ gl_version= gl_major_version+gl_minor_version/10
 renderer = SDL_CreateRenderer(window,-1, SDL_RENDERER_ACCELERATED)
 textDrawer = TextDrawer(renderer)
 
-unlitShader_prog = createShader("unlit_shader.vert","unlit_shader.frag")
+unlitShader_prog = createShader("./image_render/unlit_shader.vert","./image_render/unlit_shader.frag")
 
 fbo = glGenFramebuffers(1)
 rbos = glGenRenderbuffers(2)

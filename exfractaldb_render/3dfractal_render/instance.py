@@ -67,7 +67,7 @@ if __name__ == "__main__":
 
 	csv_names = os.listdir(args.load_root)
 	csv_names.sort()
-	weights = np.genfromtxt("./code/ifs_weight/weights_ins145.csv",dtype=np.str,delimiter=",")
+	weights = np.genfromtxt("./3dfractal_render/ifs_weight/weights_ins145.csv",dtype=np.str,delimiter=",")
 	for i, csv_name in enumerate(csv_names):
 		name, ext = os.path.splitext(csv_name)
 		
