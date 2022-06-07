@@ -1,5 +1,5 @@
 SAVE_ROOT="./dataset/rcdb"
-CLASSES=21000
+CLASSES=2
 INSTANCES=1000
 VERTEX_NUM=200
 PERLIN_MIN=0
@@ -7,7 +7,7 @@ LINE_WIDTH=0.1
 RADIUS_MIN=0
 OVAL_RATE=2
 START_POS=400
-NUMOF_THREAD=40
+NUMOF_THREAD=2
 
 # Multi-thread processing
 for ((i=0 ; i<${NUMOF_THREAD} ; i++))
@@ -28,7 +28,7 @@ LR=1.0e-3
 # name of dataset
 DATA_NAME=RCDB
 # num of epochs
-EPOCHS=90
+EPOCHS=1
 # path to train dataset
 SOURCE_DATASET=${SAVE_ROOT}
 # output dir path
@@ -38,7 +38,7 @@ NGPUS=2
 # num of processes per node
 NPERNODE=2
 # local mini-batch size (global mini-batch size = NGPUS × LOCAL_BS)
-LOCAL_BS=64
+LOCAL_BS=16
 
 export CUDA_VISIBLE_DEVICES="0,1"
 
@@ -63,7 +63,7 @@ PRE_LR=1.0e-3
 # name of dataset for pre-train
 PRE_DATA_NAME=RCDB
 # num of classes for pre-train
-PRE_CLASSES=21000
+PRE_CLASSES=1000
 # path to checkpoint of pre-trained model
 CP_PATH=${OUT_DIR}/pretrain_deit_${MODEL}_${PRE_DATA_NAME}${PRE_CLASSES}_${PRE_LR}/model_best.pth.tar
 
@@ -71,21 +71,21 @@ CP_PATH=${OUT_DIR}/pretrain_deit_${MODEL}_${PRE_DATA_NAME}${PRE_CLASSES}_${PRE_L
 # output dir path
 OUT_DIR=./cheak_points/${MODEL}/${CLASSES}/finetune
 # path to fine-tune dataset
-SOURCE_DATASET_DIR=/PATH/TO/IMAGENET
+SOURCE_DATASET_DIR="/home/pcd004/2021/yamada/datasets/CIFAR10"
 # name of dataset
-DATA_NAME=ImageNet
+DATA_NAME=CIFAR10
 # initial learning rate
 LR=1.0e-3
 # num of classes
-CLASSES=1000
+CLASSES=10
 # num of epochs
-EPOCHS=300
+EPOCHS=1
 # num of GPUs
 NGPUS=2
 # num of processes per node
 NPERNODE=2
 # local mini-batch size (global mini-batch size = NGPUS × LOCAL_BS)
-LOCAL_BS=64
+LOCAL_BS=16
 
 export CUDA_VISIBLE_DEVICES="0,1"
 

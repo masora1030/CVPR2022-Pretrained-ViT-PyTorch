@@ -1,5 +1,5 @@
-SAVE_ROOT="./dataset/rcdb2"
-CLASSES=2
+SAVE_ROOT="./dataset/rcdb"
+CLASSES=1000
 INSTANCES=1000
 VERTEX_NUM=200
 PERLIN_MIN=0
@@ -7,7 +7,7 @@ LINE_WIDTH=0.1
 RADIUS_MIN=0
 OVAL_RATE=2
 START_POS=400
-NUMOF_THREAD=2
+NUMOF_THREAD=40
 
 # Multi-thread processing
 for ((i=0 ; i<${NUMOF_THREAD} ; i++))
@@ -26,19 +26,21 @@ MODEL=base
 # initial learning rate
 LR=1.0e-3
 # name of dataset
-DATA_NAME=ExFractalDB
+DATA_NAME=RCDB
 # num of epochs
-EPOCHS=1
+EPOCHS=300
 # path to train dataset
 SOURCE_DATASET=${SAVE_ROOT}
 # output dir path
 OUT_DIR=./cheak_points/${MODEL}/${CLASSES}/pretrain
 # num of GPUs
-NGPUS=5
+NGPUS=2
 # num of processes per node
-NPERNODE=5
+NPERNODE=2
 # local mini-batch size (global mini-batch size = NGPUS × LOCAL_BS)
-LOCAL_BS=16
+LOCAL_BS=64
+
+export CUDA_VISIBLE_DEVICES="0,1"
 
 python pretrain.py ${SOURCE_DATASET} \
     --model deit_${MODEL}_patch16_224 --experiment pretrain_deit_${MODEL}_${DATA_NAME}${CLASSES}_${LR} \
@@ -59,9 +61,9 @@ python pretrain.py ${SOURCE_DATASET} \
 # initial learning rate for pre-train
 PRE_LR=1.0e-3
 # name of dataset for pre-train
-PRE_DATA_NAME=ExFractalDB
+PRE_DATA_NAME=RCDB
 # num of classes for pre-train
-PRE_CLASSES=2
+PRE_CLASSES=1000
 # path to checkpoint of pre-trained model
 CP_PATH=${OUT_DIR}/pretrain_deit_${MODEL}_${PRE_DATA_NAME}${PRE_CLASSES}_${PRE_LR}/model_best.pth.tar
 
@@ -69,21 +71,23 @@ CP_PATH=${OUT_DIR}/pretrain_deit_${MODEL}_${PRE_DATA_NAME}${PRE_CLASSES}_${PRE_L
 # output dir path
 OUT_DIR=./cheak_points/${MODEL}/${CLASSES}/finetune
 # path to fine-tune dataset
-SOURCE_DATASET_DIR=/home/yamada/Document/datasets/CIFAR10
+SOURCE_DATASET_DIR=/PATH/TO/IMAGENET
 # name of dataset
-DATA_NAME=CIFAR10
+DATA_NAME=ImageNet
 # initial learning rate
 LR=1.0e-3
 # num of classes
-CLASSES=10
+CLASSES=1000
 # num of epochs
-EPOCHS=1
+EPOCHS=300
 # num of GPUs
-NGPUS=5
+NGPUS=2
 # num of processes per node
-NPERNODE=5
+NPERNODE=2
 # local mini-batch size (global mini-batch size = NGPUS × LOCAL_BS)
-LOCAL_BS=16
+LOCAL_BS=64
+
+export CUDA_VISIBLE_DEVICES="0,1"
 
 python finetune.py ${SOURCE_DATASET_DIR} \
     --model deit_${MODEL}_patch16_224 --experiment finetune_deit_${MODEL}_${DATA_NAME}_from_${PRE_DATA_NAME}${PRE_CLASSES}_${PRE_LR} \
