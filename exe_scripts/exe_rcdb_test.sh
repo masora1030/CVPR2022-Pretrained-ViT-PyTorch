@@ -1,5 +1,5 @@
 SAVE_ROOT="./dataset/rcdb"
-CLASSES=2
+CLASSES=10
 INSTANCES=1000
 VERTEX_NUM=200
 PERLIN_MIN=0
@@ -7,8 +7,8 @@ LINE_WIDTH=0.1
 RADIUS_MIN=0
 OVAL_RATE=2
 START_POS=400
-NUMOF_THREAD=2
-/home/hayamizu/CVPR2022-Pretrained-ViT-PyTorch/cheak_points/base/2/pretrain/pretrain_deit_base_RCDB2_1.0e-3/model_best.pth.tar
+NUMOF_THREAD=10
+
 # Multi-thread processing
 for ((i=0 ; i<${NUMOF_THREAD} ; i++))
 do
@@ -34,12 +34,13 @@ SOURCE_DATASET=${SAVE_ROOT}
 # output dir path
 OUT_DIR=./cheak_points/${MODEL}/${CLASSES}/pretrain
 # num of GPUs
-NGPUS=2
+NGPUS=5
 # num of processes per node
-NPERNODE=2
+NPERNODE=5
 # local mini-batch size (global mini-batch size = NGPUS × LOCAL_BS)
 LOCAL_BS=16
 
+mpirun -npernode ${NPERNODE} -np ${NGPUS} \
 python pretrain.py ${SOURCE_DATASET} \
     --model deit_${MODEL}_patch16_224 --experiment pretrain_deit_${MODEL}_${DATA_NAME}${CLASSES}_${LR} \
     --input-size 3 224 224 \
@@ -61,7 +62,7 @@ PRE_LR=1.0e-3
 # name of dataset for pre-train
 PRE_DATA_NAME=RCDB
 # num of classes for pre-train
-PRE_CLASSES=2
+PRE_CLASSES=10
 # path to checkpoint of pre-trained model
 CP_PATH=${OUT_DIR}/pretrain_deit_${MODEL}_${PRE_DATA_NAME}${PRE_CLASSES}_${PRE_LR}/model_best.pth.tar
 
@@ -79,14 +80,13 @@ CLASSES=10
 # num of epochs
 EPOCHS=1
 # num of GPUs
-NGPUS=2
+NGPUS=5
 # num of processes per node
-NPERNODE=2
+NPERNODE=5
 # local mini-batch size (global mini-batch size = NGPUS × LOCAL_BS)
 LOCAL_BS=16
 
-export CUDA_VISIBLE_DEVICES="0,1"
-
+mpirun -npernode ${NPERNODE} -np ${NGPUS} \
 python finetune.py ${SOURCE_DATASET_DIR} \
     --model deit_${MODEL}_patch16_224 --experiment finetune_deit_${MODEL}_${DATA_NAME}_from_${PRE_DATA_NAME}${PRE_CLASSES}_${PRE_LR} \
     --input-size 3 224 224 --num-classes ${CLASSES} \
