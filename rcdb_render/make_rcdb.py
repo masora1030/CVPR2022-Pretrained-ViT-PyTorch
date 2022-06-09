@@ -37,15 +37,11 @@ Noise_x = []
 Noise_y = []
 im = []
 vertex_number = 2
+random.seed(args.thread_num + 1)
 
 class_per_thread = args.numof_classes / args.numof_thread
 cat_start = args.thread_num * int(class_per_thread)
 cat_finish = cat_start + int(class_per_thread)
-
-print(class_per_thread)
-print(cat_start)
-print(cat_finish)
-
 
 for cat in range(int(cat_start), int(cat_finish)):
 
@@ -120,7 +116,7 @@ for cat in range(int(cat_start), int(cat_finish)):
                 draw.line((vertex_x[i] + start_pos_w, vertex_y[i] + start_pos_h, vertex_x[i + 1] + start_pos_w, vertex_y[i + 1] + start_pos_h), fill = (r,r,r), width = 1)
 
         if not args.display:
-            im[k2].save(args.save_root + "/image/%05d/vertex_%04d_instance_%04d.png" % (cat, vertex_number, k2), quality = 95)
+            im[k2].save(args.save_root + "/image/%05d/%05d_%04d.png" % (cat, cat, k2), quality = 95)
         else:
             im[k2].show()
         

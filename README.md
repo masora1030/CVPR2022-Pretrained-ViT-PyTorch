@@ -127,7 +127,7 @@ $ bash ExFractalDB_render.sh
 ```
 
 <!-- TODO update -->
-## RCDB Construction ([README]())
+## RCDB Construction ([README](https://CVPR2022-Pretrained-ViT-PyTorch/rcdb_render/README.md))
 ```
 $ cd rcdb_render
 $ bash RCDB_render.sh
