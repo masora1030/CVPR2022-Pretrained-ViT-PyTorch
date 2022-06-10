@@ -118,6 +118,8 @@ We prepared four execution files in ```exe_scripts``` directory. Please type the
 > - ```exe_scripts/exe_exfractaldb_1k.sh``` and ```exe_scripts/exe_rcdb_1k.sh``` are execution scripts under a single node and 4 GPUs environment. For example, if you wish to run the script under a single node and a single GPU, try setting the ```NGPUS``` and ```NPERNODE``` environment variables in the script to 1. ```NGPUS``` means overall the number of GPUs (processes) and ```NPERNODE``` means GPUs (processes) per node.
 > 
 > - In ```exe_scripts/exe_exfractaldb_21k.sh``` and ```exe_scripts/exe_rcdb_21k.sh```, we use the same configs reported in our paper. Therefore, the setup is multiple nodes and using a large number of GPUs (32 nodes and 128 GPUs for pre-train). If you wish to conduct single-node experiments, please change the config accordingly. Attention, that the number of GPUs used changes the overall batch size proportionally and the optimal learning rate.
+> 
+> - We use OpenGL to generate ExFractalDB, and because of this, the generation of ExFractalDB in remote environment is currently not tested. Please try to generate ExFractalDB in your local environment. Generating of RCDB and training models have been tested in remote environment.
 
 <!-- TODO update -->
 ## ExFractalDB Construction ([README]())
