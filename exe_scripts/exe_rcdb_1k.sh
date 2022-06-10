@@ -19,7 +19,7 @@ do
 done
 wait
 
-# pretrain
+# RCDB Pre-training
 
 # model size
 MODEL=base
@@ -57,7 +57,7 @@ python pretrain.py ${SOURCE_DATASET} \
     --interval-saved-epochs 10 --output ${OUT_DIR} \
     --log-wandb
 
-# finetune
+# RCDB Fine-tuning
 
 # ======== parameter for pre-trained model ========
 # initial learning rate for pre-train
