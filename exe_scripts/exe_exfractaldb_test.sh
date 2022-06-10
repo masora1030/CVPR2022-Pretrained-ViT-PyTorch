@@ -21,19 +21,19 @@ cd ../
 # MV-FractalDB Pre-training
 
 # model size
-MODEL=base
+MODEL=tiny
 # initial learning rate
 LR=1.0e-3
 # name of dataset
 DATA_NAME=ExFractalDB
 # num of epochs
-EPOCHS=90
+EPOCHS=2
 # path to train dataset
 SOURCE_DATASET=${SAVE_ROOT}
 # output dir path
 OUT_DIR=./cheak_points/${MODEL}/${CLASSES}/pretrain
 # num of GPUs
-NGPUS=128
+NGPUS=4
 # num of processes per node
 NPERNODE=4
 # local mini-batch size (global mini-batch size = NGPUS × LOCAL_BS)
@@ -53,10 +53,10 @@ python pretrain.py ${SOURCE_DATASET} \
     --repeated-aug --mixup 0.8 --cutmix 1.0 --reprob 0.25 \
     --remode pixel --interpolation bicubic --hflip 0.0 \
     -j 16 --eval-metric loss \
-    --interval-saved-epochs 10 --output ${OUT_DIR} \
-    --log-wandb
+    --interval-saved-epochs 10 --output ${OUT_DIR}
+    # --log-wandb
 
-# MV-FractalDB Pre-training
+# MV-FractalDB Fine-training
 
 # ======== parameter for pre-trained model ========
 # initial learning rate for pre-train
@@ -64,7 +64,7 @@ PRE_LR=1.0e-3
 # name of dataset for pre-train
 PRE_DATA_NAME=ExFractalDB
 # num of classes for pre-train
-PRE_CLASSES=21000
+PRE_CLASSES=10
 # path to checkpoint of pre-trained model
 CP_PATH=${OUT_DIR}/pretrain_deit_${MODEL}_${PRE_DATA_NAME}${PRE_CLASSES}_${PRE_LR}/model_best.pth.tar
 
@@ -72,17 +72,17 @@ CP_PATH=${OUT_DIR}/pretrain_deit_${MODEL}_${PRE_DATA_NAME}${PRE_CLASSES}_${PRE_L
 # output dir path
 OUT_DIR=./cheak_points/${MODEL}/${CLASSES}/finetune
 # path to fine-tune dataset
-SOURCE_DATASET_DIR=/PATH/TO/IMAGENET
+SOURCE_DATASET_DIR=/groups/gcd50691/datasets/cifar10
 # name of dataset
-DATA_NAME=ImageNet
+DATA_NAME=CIFAR10
 # initial learning rate
 LR=1.0e-3
 # num of classes
-CLASSES=1000
+CLASSES=10
 # num of epochs
-EPOCHS=300
+EPOCHS=2
 # num of GPUs
-NGPUS=16
+NGPUS=4
 # num of processes per node
 NPERNODE=4
 # local mini-batch size (global mini-batch size = NGPUS × LOCAL_BS)
@@ -99,5 +99,4 @@ python finetune.py ${SOURCE_DATASET_DIR} \
     --repeated-aug --mixup 0.8 --cutmix 1.0 \
     -j 16 \
     --output ${OUT_DIR} \
-    --log-wandb \
     --pretrained-path ${CP_PATH}

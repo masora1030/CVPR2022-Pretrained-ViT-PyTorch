@@ -1,18 +1,22 @@
 #! /bin/bash
 VARIANCE_THRESHOLD=0.05
-CLASSES=1000
-PARAM_PATH='./datasets/MVFractalDB/3DIFS_params/MVFractalDB-'${CLASSES}
-3DMODEL_SAVE_PATH='./datasets/MVFractalDB/3D-model/MVFractalDB-'${CLASSES}
-SAVE_ROOT='./datasets/MVFractalDB/images/MVFractalDB-'${CLASSES}
+CLASSES=10
+PARAM_PATH=./datasets/MVFractalDB/3DIFS_params/MVFractalDB-${CLASSES}
+MODEL_SAVE_PATH=./datasets/MVFractalDB/3D-model/MVFractalDB-${CLASSES}
+SAVE_ROOT=./datasets/MVFractalDB/images/MVFractalDB-${CLASSES}
+
+cd ./exfractaldb_render
 
 # Parameter search
-python category_search.py --variance=${VARIANCE_THRESHOLD} --numof_classes=${CLASSES} --save_root=${PARAM_PATH}
+python 3dfractal_render/category_search.py --variance ${VARIANCE_THRESHOLD} --numof_classes ${CLASSES} --save_root ../${PARAM_PATH}
 
 # Generate 3D fractal model
-python instance.py --load_root ${PARAM_PATH} --save_root ${3DMODEL_SAVE_PATH} --classes ${CLASSES}
+python 3dfractal_render/instance.py --load_root ../${PARAM_PATH} --save_root ../${MODEL_SAVE_PATH} --classes ${CLASSES}
 
 # Multi-view images render
-python render.py --load_root ${3DMODEL_SAVE_PATH} --save_root ${SAVE_ROOT}
+python image_render/render.py --load_root ../${MODEL_SAVE_PATH} --save_root ../${SAVE_ROOT}
+
+cd ../
 
 # MV-FractalDB Pre-training
 
