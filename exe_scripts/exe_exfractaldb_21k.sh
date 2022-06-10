@@ -1,6 +1,6 @@
 #! /bin/bash
 VARIANCE_THRESHOLD=0.05
-CLASSES=10
+CLASSES=21000
 PARAM_PATH=./datasets/MVFractalDB/3DIFS_params/MVFractalDB-${CLASSES}
 MODEL_SAVE_PATH=./datasets/MVFractalDB/3D-model/MVFractalDB-${CLASSES}
 SAVE_ROOT=./datasets/MVFractalDB/images/MVFractalDB-${CLASSES}
