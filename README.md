@@ -20,10 +20,12 @@
 
 The repository contains ExFractalDB (Extended Fractal DataBase) and RCDB (Radial Contour DataBase) Construction, Pre-training, and Fine-tuning in Python/PyTorch.
 
+The repository is based on the paper:
+Hirokatsu Kataoka, Ryo Hayamizu, Ryosuke Yamada, Kodai Nakashima, Sora Takashima, Xinyu Zhang, Edgar Josafat Martinez-Noriega, Nakamasa Inoue and Rio Yokota, "Replacing Labeled Real-Image Datasets With Auto-Generated Contours", IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR) 2022
+[[Project](https://hirokatsukataoka16.github.io/Replacing-Labeled-Real-Image-Datasets/)] [[PDF (CVPR)](https://openaccess.thecvf.com/content/CVPR2022/papers/Kataoka_Replacing_Labeled_Real-Image_Datasets_With_Auto-Generated_Contours_CVPR_2022_paper.pdf)]
+
 <!-- TODO update -->
-<!-- The repository is based on the paper:
-Hirokatsu Kataoka, Ryo Hayamizu, Ryosuke Yamada, Kodai Nakashima, Sora Takashima, Xinyu Zhang, Edgar Josafat Martinez-Noriega, Nakamasa Inoue and Rio Yokota, "Replacing Labeled Real-Image Datasets With Auto-Generated Contours", IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR) 2022 
-[[Project](https://hirokatsukataoka16.github.io/Pretraining-without-Natural-Images/)] [[PDF (IJCV)](https://link.springer.com/content/pdf/10.1007/s11263-021-01555-8.pdf)] [[PDF (ACCV)](https://openaccess.thecvf.com/content/ACCV2020/papers/Kataoka_Pre-training_without_Natural_Images_ACCV_2020_paper.pdf)] [[Dataset](https://hirokatsukataoka16.github.io/Pretraining-without-Natural-Images/#dataset)] [[Oral](http://hirokatsukataoka.net/pdf/accv20_kataoka_oral.pdf)] [[Poster](http://hirokatsukataoka.net/pdf/accv20_kataoka_poster.pdf)] -->
+<!-- [[Dataset](https://hirokatsukataoka16.github.io/Pretraining-without-Natural-Images/#dataset)] [[Oral](http://hirokatsukataoka.net/pdf/accv20_kataoka_oral.pdf)] [[Poster](http://hirokatsukataoka.net/pdf/accv20_kataoka_poster.pdf)] -->
 
 ## Updates
 <!-- TODO update -->
@@ -36,11 +38,9 @@ Hirokatsu Kataoka, Ryo Hayamizu, Ryosuke Yamada, Kodai Nakashima, Sora Takashima
 * Related project "Can Vision Transformers Learn without Natural Images?" was released. We achieved to train vision transformers (ViT) without natural images. [[Project](https://hirokatsukataoka16.github.io/Vision-Transformers-without-Natural-Images/)] [[PDF](https://arxiv.org/abs/2103.13023)] [[Code](https://github.com/nakashima-kodai/FractalDB-Pretrained-ViT-PyTorch)] -->
 
 
-**Update (May. 21, 2021)**
-* Pre-training & Fine-tuning codes
-<!-- * Downloadable pre-training models [[Link](https://drive.google.com/drive/folders/1tTD-cKKEgBjacCi4ZJ6bRYOv6FsjtGt_?usp=sharing)] -->
-<!-- * Multi-thread preparation with ```param_search/parallel_dir.py``` -->
-<!-- * Divide execution files into single-thread processing ```exe.sh``` and multi-thread processing ```exe_parallel.sh``` for FractalDB rendering. -->
+**Update (June 13, 2022)**
+* ExFractalDB and RCDB Construction & Pre-training & Fine-tuning codes
+* Downloadable pre-training models [[Link](https://drive.google.com/drive/folders/1ikNUxJoMCx3Lx2TMrXfLdIwI6wwK5w_W?usp=sharing)]
 
 ## Citation
 
