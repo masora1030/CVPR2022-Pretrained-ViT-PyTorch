@@ -122,7 +122,7 @@ We prepared four execution files in ```exe_scripts``` directory. Please type the
 > - We use OpenGL to generate ExFractalDB, and because of this, generating ExFractalDB in remote environment is currently not tested. Please try to generate ExFractalDB in your local environment. Generating RCDB and training models have been tested in remote environment.
 
 <!-- TODO update -->
-## ExFractalDB Construction ([README]())
+## ExFractalDB Construction ([README](exfdb_render/README.md))
 ```
 $ cd exfractaldb_render
 $ bash ExFractalDB_render.sh
