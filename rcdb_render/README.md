@@ -3,9 +3,9 @@ Run the python script ```make_rcdb.py```, you can get our Radial Contour dataset
 
 ## Requirements
 
-* noise
+* noise (worked at 1.2.2)
 
-* PIL
+* PIL (worked at 9.0.0)
 
 * Python 3 (worked at 3.7)
 
