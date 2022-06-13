@@ -22,10 +22,7 @@ The repository contains ExFractalDB (Extended Fractal DataBase) and RCDB (Radial
 
 The repository is based on the paper:
 Hirokatsu Kataoka, Ryo Hayamizu, Ryosuke Yamada, Kodai Nakashima, Sora Takashima, Xinyu Zhang, Edgar Josafat Martinez-Noriega, Nakamasa Inoue and Rio Yokota, "Replacing Labeled Real-Image Datasets With Auto-Generated Contours", IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR) 2022
-[[Project](https://hirokatsukataoka16.github.io/Replacing-Labeled-Real-Image-Datasets/)] [[PDF (CVPR)](https://openaccess.thecvf.com/content/CVPR2022/papers/Kataoka_Replacing_Labeled_Real-Image_Datasets_With_Auto-Generated_Contours_CVPR_2022_paper.pdf)]
-
-<!-- TODO update -->
-<!-- [[Dataset](https://hirokatsukataoka16.github.io/Pretraining-without-Natural-Images/#dataset)] [[Oral](http://hirokatsukataoka.net/pdf/accv20_kataoka_oral.pdf)] [[Poster](http://hirokatsukataoka.net/pdf/accv20_kataoka_poster.pdf)] -->
+[[Project](https://hirokatsukataoka16.github.io/Replacing-Labeled-Real-Image-Datasets/)] [[PDF (CVPR)](https://openaccess.thecvf.com/content/CVPR2022/papers/Kataoka_Replacing_Labeled_Real-Image_Datasets_With_Auto-Generated_Contours_CVPR_2022_paper.pdf)] [[Dataset](https://hirokatsukataoka16.github.io/Replacing-Labeled-Real-Image-Datasets/#dataset)] [[Oral](http://hirokatsukataoka.net/pdf/cvpr22_kataoka_oral.pdf)] [[Poster](http://hirokatsukataoka.net/pdf/cvpr22_kataoka_poster.pdf)] [[Supp](http://hirokatsukataoka.net/pdf/cvpr22_kataoka_fdsl_supplementary.pdf)]
 
 ## Updates
 <!-- TODO update -->
