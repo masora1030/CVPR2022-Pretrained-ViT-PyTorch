@@ -58,5 +58,6 @@ The folder structure is constructed as follows.
 
 > **Note**
 > 
-> ~~- We use OpenGL to generate ExFractalDB, and because of this, generating ExFractalDB in remote environment is currently not tested. Please try to generate ExFractalDB in your local environment. ~~
+> ~~We use OpenGL to generate ExFractalDB, and because of this, generating ExFractalDB in remote environment is currently not tested. Please try to generate ExFractalDB in your local environment.~~
+> 
 > **We updated to allow generation in a remote environment.**
