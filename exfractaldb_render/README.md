@@ -1,5 +1,5 @@
 # Extended Fractal DataBase (ExFractalDB)
-Run the bash script ```ExFractalDB_render.sh```, you can get our Extended Fractal DataBase.
+Run the bash script ```ExFractalDB_render.sh```, you can get our Multi-view Fractal DataBase.
 
 [MV-FractalDB](https://ryosuke-yamada.github.io/Multi-view-Fractal-DataBase/) generates 12 images from _fixed_ viewpoints,
 whereas ExFractalDB _randomly_ selects and projects 2D images from 3D models.
