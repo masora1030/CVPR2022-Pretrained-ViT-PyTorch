@@ -26,7 +26,7 @@ Note that this code is for constructing the MV-FractalDB, whereas you can constr
 We prepared execution file ExFractalDB_render.sh in this directory. 
 The execution file contains our recommended parameters. 
 Please type the following commands on your environment. 
-You can execute the fractal category search, the 3D fractal model generate, and the multi-view image render, ExFractalDB Construction.
+You can execute the fractal category search, the 3D fractal model generate, and the multi-view image render, MVFractalDB Construction.
 
 ```bash ExFractalDB_render.sh```
 
@@ -58,4 +58,5 @@ The folder structure is constructed as follows.
 
 > **Note**
 > 
-> - We use OpenGL to generate ExFractalDB, and because of this, generating ExFractalDB in remote environment is currently not tested. Please try to generate ExFractalDB in your local environment.
+> ~~- We use OpenGL to generate ExFractalDB, and because of this, generating ExFractalDB in remote environment is currently not tested. Please try to generate ExFractalDB in your local environment. ~~
+> **We updated to allow generation in a remote environment.**
