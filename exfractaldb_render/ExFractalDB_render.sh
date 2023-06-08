@@ -1,4 +1,5 @@
 #! /bin/bash
+export PYOPENGL_PLATFORM=egl
 variance_threshold=0.05
 numof_category=1000
 param_path='../dataset/MVFractalDB-'${numof_category}'/3DIFS_params'
